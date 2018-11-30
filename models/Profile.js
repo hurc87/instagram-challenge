@@ -15,20 +15,6 @@ const ProfileSchema = new Schema({
   bio: {
     type: String,
   },
-  social: {
-    youtube: {
-      type: String,
-    },
-    facebook: {
-      type: String,
-    },
-    twitter: {
-      type: String,
-    },
-    instagram: {
-      type: String,
-    },
-  }
 });
 
 module.exports = Profile = mongoose.model('profile', ProfileSchema);
