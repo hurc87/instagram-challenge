@@ -39,6 +39,45 @@ router.get(
     .catch(err => res.status(404).json(err));
 });
 
+// @route   GET api/profile/username/:username
+// @desc    Get profile by username
+// @access  Public
+
+router.get('/username/:username', (req, res) => {
+  const errors = {};
+  Profile.findOne({ username: req.params.username })
+    .populate('user', ['name'])
+    .then(profile => {
+      if(!profile) {
+        errors.noprofile = 'There is no profile for this user';
+        res.status(404).json(errors);
+      }
+
+      res.json(profile);
+    })
+    .catch(err => res.status(404).json(err));
+});
+
+// @route   GET api/profile/user/:user_id
+// @desc    Get profile by user ID
+// @access  Public
+
+router.get('/user/:user_id', (req, res) => {
+  const errors = {};
+  Profile.findOne({ user: req.params.user_id })
+    .populate('user', ['name'])
+    .then(profile => {
+      if(!profile) {
+        errors.noprofile = 'There is no profile for this user';
+        res.status(404).json(errors);
+      }
+
+      res.json(profile);
+    })
+    .catch(err => res.status(404).json({profile: 'There is no profile for this user'}));
+});
+
+
 // @route   POST api/profile
 // @desc    Create or edit user profile
 // @access  Private
